@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C语言 练习详情 - LiQian</title>
+    <link rel="stylesheet" href="../css/practice.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="../code_practice.html" class="nav-brand">
+                <i class="fas fa-arrow-left"></i> 返回练习库
+            </a>
+        </nav>
+
+        <section class="hero-section">
+            <h1><i class="fab fa-c"></i> C语言 编程练习</h1>
+            <p>算法实现、数据结构练习和日常编码挑战</p>
+        </section>
+
+        <div style="padding: 2rem;">
+            <!-- 代码示例区域 -->
+            <div class="code-section">
+                <h3><i class="fas fa-code"></i> 快速排序算法实现</h3>
+                <pre><code class="language-python">
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+//2026.01.11力扣网刷题
+//3643. 垂直翻转子矩阵——数组、双指针、矩阵、第462场周赛——简单
+//给你一个 m x n 的整数矩阵 grid，以及三个整数 x、y 和 k。
+//整数 x 和 y 表示一个 正方形子矩阵 的左上角下标，整数 k 表示该正方形子矩阵的边长。
+//你的任务是垂直翻转子矩阵的行顺序。
+//返回更新后的矩阵。
+//示例 1：
+//输入： grid = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], x = 1, y = 0, k = 3
+//输出： [[1, 2, 3, 4], [13, 14, 15, 8], [9, 10, 11, 12], [5, 6, 7, 16]]
+//解释：
+//上图展示了矩阵在变换前后的样子。
+//示例 2：
+//输入： grid = [[3, 4, 2, 3], [2, 3, 4, 2]], x = 0, y = 2, k = 2
+//输出： [[3, 4, 4, 2], [2, 3, 2, 3]]
+//解释：
+//上图展示了矩阵在变换前后的样子。
+//提示：
+//m == grid.length
+//n == grid[i].length
+//1 <= m, n <= 50
+//1 <= grid[i][j] <= 100
+//0 <= x < m
+//0 <= y < n
+//1 <= k <= min(m - x, n - y)
+
+int** reverseSubmatrix(int** grid, int gridSize, int* gridColSize, int x, int y, int k, int* returnSize, int** returnColumnSizes) {
+	int** ans = (int**)calloc(gridSize, sizeof(int*));
+	assert(ans);
+	*returnSize = gridSize;
+	*returnColumnSizes = (int*)calloc(gridSize, sizeof(int));
+	assert(*returnColumnSizes);
+	for (int i = 0; i < gridSize; i++) {
+		ans[i] = (int*)calloc(gridColSize[0], sizeof(int));
+		assert(ans[i]);
+		(*returnColumnSizes)[i] = gridColSize[0];
+	}
+	int r_size = x + k, c_size = y + k;
+	int n = 1;
+	for (int i = 0; i < gridSize; i++) {
+		int row = i;
+		int flag = 0;
+		for (int j = 0; j < gridColSize[i]; j++) {
+			if (x <= i && i < r_size && y <= j && j < c_size) {
+				row = r_size - n;
+				flag = 1;
+			}
+			else {
+				row = i;
+			}
+			ans[i][j] = grid[row][j];
+		}
+		if (flag) {
+			n += 1;
+		}
+	}
+	return ans;
+}
+
+# 测试示例
+int main(){
+    int grid[4][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}}, x = 1, y = 0, k = 3;
+    int row = 0, int* col = NULL;
+    int** res = reverseSubmatrix(grid, 4, 4, x, y, k, &row, &col);
+    for(int i = 0; i < row; i++){
+        printf("[");
+        for(int j = 0; j < col[0]; j++){
+            if(j < col[0] - 1){
+                printf("%d, ", res[i][j]); 
+            }
+            else{
+                printf("%d", res[i][j]);
+            }
+        }
+        printf("]\n");
+    }
+    for(int i = 0; i < row; i++){
+        free(res[i]);
+        res[i] = NULL;
+    }
+    free(res);
+    res = NULL;
+    free(col);
+    col = NULL;
+    return 0;
+}
+</code></pre>
+            </div>
+
+            <!-- 项目信息 -->
+            <div class="project-info" style="margin-top: 2rem;">
+                <h3><i class="fas fa-info-circle"></i> 项目信息</h3>
+                <div class="repo-links">
+                    <a href="https://gitee.com/Li_2023-9-13/daily_practice_c"
+                       target="_blank" class="repo-link gitee">
+                        <i class="fas fa-code"></i> Gitee 仓库
+                    </a>
+                    <a href="https://github.com/LiQian2023/daily_practice_c"
+                       target="_blank" class="repo-link github">
+                        <i class="fab fa-github"></i> GitHub 镜像
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 代码高亮 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../js/practice.js"></script>
+</body>
+</html>
