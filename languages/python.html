@@ -24,65 +24,66 @@
         <div style="padding: 2rem;">
             <!-- 代码示例区域 -->
             <div class="code-section">
-                <h3><i class="fas fa-code"></i> 快速排序算法实现</h3>
+                <h3><i class="fas fa-code"></i> 2026.01.12力扣网习题</h3>
                 <pre><code class="language-python">
-# 2026.01.11力扣网刷题
-# 3643. 垂直翻转子矩阵——数组、双指针、矩阵、第462场周赛——简单
-# 给你一个 m x n 的整数矩阵 grid，以及三个整数 x、y 和 k。
-# 整数 x 和 y 表示一个 正方形子矩阵 的左上角下标，整数 k 表示该正方形子矩阵的边长。
-# 你的任务是垂直翻转子矩阵的行顺序。
-# 返回更新后的矩阵。
+# 2026.01.12力扣网刷题
+# 3740. 三个相等元素之间的最小距离 I——数组、哈希表、第475场周赛——简单
+# 给你一个整数数组 nums。
+# 如果满足 nums[i] == nums[j] == nums[k]，且(i, j, k) 是 3 个 不同 下标，那么三元组(i, j, k) 被称为 有效三元组 。
+# 有效三元组 的 距离 被定义为 abs(i - j) + abs(j - k) + abs(k - i)，其中 abs(x) 表示 x 的 绝对值 。
+# 返回一个整数，表示 有效三元组 的 最小 可能距离。如果不存在 有效三元组 ，返回 - 1。
 # 示例 1：
-# 输入： grid = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], x = 1, y = 0, k = 3
-# 输出： [[1, 2, 3, 4], [13, 14, 15, 8], [9, 10, 11, 12], [5, 6, 7, 16]]
+# 输入： nums = [1, 2, 1, 1, 3]
+# 输出： 6
 # 解释：
-# 上图展示了矩阵在变换前后的样子。
+# 最小距离对应的有效三元组是(0, 2, 3) 。
+# (0, 2, 3) 是一个有效三元组，因为 nums[0] == nums[2] == nums[3] == 1。它的距离为 abs(0 - 2) + abs(2 - 3) + abs(3 - 0) = 2 + 1 + 3 = 6。
 # 示例 2：
-# 输入： grid = [[3, 4, 2, 3], [2, 3, 4, 2]], x = 0, y = 2, k = 2
-# 输出： [[3, 4, 4, 2], [2, 3, 2, 3]]
+# 输入： nums = [1, 1, 2, 3, 2, 1, 2]
+# 输出： 8
 # 解释：
-# 上图展示了矩阵在变换前后的样子。
+# 最小距离对应的有效三元组是(2, 4, 6) 。
+# (2, 4, 6) 是一个有效三元组，因为 nums[2] == nums[4] == nums[6] == 2。它的距离为 abs(2 - 4) + abs(4 - 6) + abs(6 - 2) = 2 + 2 + 4 = 8。
+# 示例 3：
+# 输入： nums = [1]
+# 输出： - 1
+# 解释：
+# 不存在有效三元组，因此答案为 - 1。
 # 提示：
-# m == grid.length
-# n == grid[i].length
-# 1 <= m, n <= 50
-# 1 <= grid[i][j] <= 100
-# 0 <= x < m
-# 0 <= y < n
-# 1 <= k <= min(m - x, n - y)
+# 1 <= n == nums.length <= 100
+# 1 <= nums[i] <= n
 
 class Solution(object):
-    def reverseSubmatrix(self, grid, x, y, k):
+    def minimumDistance(self, nums):
         """
-        :type grid: List[List[int]]
-        :type x: int
-        :type y: int
-        :type k: int
-        :rtype: List[List[int]]
+        :type nums: List[int]
+        :rtype: int
         """
-        m, n = len(grid), len(grid[0])
-        ans = []
-        for i in range(m):
-            ans.append([0] * n)
-        r_size, c_size, count = x + k, y + k, 1
-        for i in range(m):
-            row, flag = i, 0
-            for j in range(n):
-                if x <= i < r_size and y <= j < c_size:
-                    row = r_size - count
-                    flag = 1
-                else:
-                    row = i
-                ans[i][j] = grid[row][j]
-            if flag:
-            count += 1
+        hash = {}
+        for i in range(len(nums)):
+            if nums[i] not in hash:
+                hash[nums[i]] = [i]
+            else:
+                hash[nums[i]].append(i)
+        ans = -1
+        for value in hash.values():
+            length = len(value)
+            if length >= 3:
+                i, tmp = 1, -1
+                while i < length - 1:
+                    dis = 2 * (value[i + 1] - value[i - 1])
+                    if tmp == -1 or dis < tmp:
+                        tmp = dis
+                    i += 1
+                if ans == -1 or tmp < ans:
+                    ans = tmp
         return ans
 
     # 测试示例
     if __name__ == "__main__":
-        grid, x, y, k = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 1, 0, 3
-        print(f"翻转前: {grid}")
-        print(f"翻转后: {reverseSubmatrix(grid, x, y, k)}")
+        nums = [1, 2, 1, 1, 3]
+        print(f"最小距离: {minimumDistance(nums)}")
+
 </code></pre>
             </div>
 
