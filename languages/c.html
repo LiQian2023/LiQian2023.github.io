@@ -24,72 +24,100 @@
         <div style="padding: 2rem;">
             <!-- 代码示例区域 -->
             <div class="code-section">
-				<h3><i class="fas fa-code"></i> 2026.01.13力扣网习题</h3>
-                <pre><code class="language-c">
-#define _CRT_SECURE_NO_WARNINGS 1
-
+				<h3><i class="fas fa-code"></i> 2026.01.15力扣网习题</h3>
+                <pre><code class="language-C">
 #include stdio.h
 #include stdlib.h
 #include assert.h
-#include stdbool.h
 
-//2026.01.13力扣网刷题
-//3745. 三元素表达式的最大值——贪心、数组、枚举、排序、第467场周赛——简单
+//2026.01.15力扣网刷题
+//3769. 二进制反射排序——数组、排序、第479场周赛——简单
 //给你一个整数数组 nums。
-//从 nums 中选择三个元素 a、b 和 c，它们的下标需 互不相同 ，使表达式 a + b - c 的值最大化。
-//返回该表达式可能的 最大值 。
+//二进制反射 是对一个 正整数 的二进制表示按顺序反转（忽略前导零）后，将反转得到的二进制数转为十进制的结果。
+//请按每个元素的二进制反射值的 升序 对数组进行排序。如果两个不同的数字具有相同的二进制反射值，则 较小 的原始数字应排在前面。
+//返回排序后的数组。
 //示例 1：
-//输入： nums = [1, 4, 2, 5]
-//输出： 8
+//输入： nums = [4, 5, 4]
+//输出：[4, 4, 5]
 //解释：
-//可以选择 a = 4，b = 5，c = 1。表达式的值为 4 + 5 - 1 = 8，这是可能的最大值。
+//二进制反射值为：
+//4 -> (二进制)100 -> (反转)001 -> 1
+//5 -> (二进制)101 -> (反转)101 -> 5
+//4 -> (二进制)100 -> (反转)001 -> 1
+//根据反射值排序为[4, 4, 5]。
 //示例 2：
-//输入： nums = [-2, 0, 5, -2, 4]
-//输出： 11
+//输入： nums = [3, 6, 5, 8]
+//输出：[8, 3, 6, 5]
 //解释：
-//可以选择 a = 5，b = 4，c = -2。表达式的值为 5 + 4 - (-2) = 11，这是可能的最大值。
+//二进制反射值为：
+//3 -> (二进制)11 -> (反转)11 -> 3
+//6 -> (二进制)110 -> (反转)011 -> 3
+//5 -> (二进制)101 -> (反转)101 -> 5
+//8 -> (二进制)1000 -> (反转)0001 -> 1
+//根据反射值排序为[8, 3, 6, 5]。
+//注意，3 和 6 的反射值相同，因此需要按原始值的升序排列。
 //提示：
-//3 <= nums.length <= 100
-//- 100 <= nums[i] <= 100
+//1 <= nums.length <= 100
+//1 <= nums[i] <= 10^9
 
-void Count_Sort(int* nums, int len, int max, int min) {
-	int* hash = (int*)calloc(max - min + 1, sizeof(int));
-	assert(hash);
-	for (int i = 0; i < len; i++) {
-		int key = nums[i] - min;
-		hash[key] += 1;
+typedef struct Hash {
+    int data;
+    int bin_to_dec;
+} Hash;
+int b_to_d(int n) {
+	// 十进制转二进制反射再转十进制
+	int rev = 0;
+	while (n) {
+		rev = (rev << 1) | (n & 1);
+		n >>= 1;
 	}
-	for (int i = min, j = 0; i <= max && j < len; i++) {
-		while (hash[i - min]) {
-			nums[j] = i;
-			j += 1;
-			hash[i - min] -= 1;
-		}
+    return rev;
+}
+int cmp_hash(const void* a, const void* b) {
+	Hash* hash_a = (Hash*)a;
+	Hash* hash_b = (Hash*)b;
+	if (hash_a->bin_to_dec != hash_b->bin_to_dec) {
+		return hash_a->bin_to_dec - hash_b->bin_to_dec;
+	} else {
+		return hash_a->data - hash_b->data;
+	}
+}
+int* sortByReflection(int* nums, int numsSize, int* returnSize) {
+    *returnSize = numsSize;
+    int* ans = (int*)calloc(numsSize, sizeof(int));
+    assert(ans);
+	Hash* hash = (Hash*)calloc(numsSize, sizeof(Hash));
+	assert(hash);
+	for (int i = 0; i < numsSize; i++) {
+		hash[i].data = nums[i];
+		hash[i].bin_to_dec = b_to_d(nums[i]);
+	}
+	qsort(hash, numsSize, sizeof(Hash), cmp_hash);
+	for (int i = 0; i < numsSize; i++) {
+		ans[i] = hash[i].data;
 	}
 	free(hash);
 	hash = NULL;
-}
-
-// 计数排序
-int maximizeExpressionOfThree(int* nums, int numsSize) {
-	int max = nums[0], min = nums[0];
-	for (int i = 0; i < numsSize; i++) {
-		if (nums[i] > max) {
-			max = nums[i];
-		}
-		else if (nums[i] < min) {
-			min = nums[i];
-		}
-	}
-	Count_Sort(nums, numsSize, max, min);
-	return nums[numsSize - 1] + nums[numsSize - 2] - nums[0];
+    return ans;
 }
 
 # 测试示例
 int main(){
     int nums[5] = {1, 2, 1, 1, 3};
-    int res = maximizeExpressionOfThree(nums, 5);
-	printf("%d\n", res);
+    int pi = 0;
+    int* res = sortByReflection(nums, 5, &pi);
+	printf("[");
+    for(int i = 0; i < pi; i++){
+        if(i < pi - 1){
+            printf("%d, ", res[i]);
+        }
+        else{
+            printf("%d");
+        }
+    }
+	printf("]");
+    free(res);
+    res = NULL;
     return 0;
 }
 </code></pre>
