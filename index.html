@@ -1,48 +1,102 @@
 ﻿<!doctype html>
-<html>
+<html lang="zh-cn">
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>LiQian's Space</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding: 50px;
-                background-color: #f5f5f5;
-            }
-
-            .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background: white;
-                padding: 30px;
-                border-radius: 10px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            h1 {
-                color: #333;
-            }
-
-            .emoji {
-                font-size: 3em;
-            }
-        </style>
+        <link rel="stylesheet" href="./css/index.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
     </head>
     <body>
-        <!-- 在 index.html 的适当位置添加 -->
-        <section class="practice-entry">
-            <h2>💻 代码练习库</h2>
-            <p>探索我的每日编程练习和算法实现</p>
-            <a href="code_practice.html" class="practice-btn">进入练习库 →</a>
-        </section>
-        <div class="container">
-            <div class="emoji">&#10084;&#65039;</div>
-            <h1>Hello, World!</h1>
-            <p>Welcome to my personal GitHub Pages site!</p>
-            <p>This site is hosted at <strong>LiQian2023.github.io</strong></p>
-            <p>More content coming soon...</p>
-            <hr />
-            <p>Made with &#10084;&#65039; by LiQian</p>
-        </div>
+        <header class="card">
+            <h1>👋 李谦 · 前端开发</h1>
+            <p>
+                <span class="info">专注交互体验与工程能力 <br /></span>
+                <span class="info"
+                    >👉 已掌握技术栈：HTML / CSS / JS / C / Python / 数据结构
+                    <br
+                /></span>
+                <span class="info">👉 正在更新技术栈：Vue / 工程化 <br /></span>
+                <span class="info"
+                    >👇
+                    项目展示：个人简历页面/排序算法可视化/每日代码练习库</span
+                >
+            </p>
+        </header>
+        <nav class="card">
+            <ul>
+                <li><a href="#resume">个人简历</a></li>
+                <li><a href="#sorting">排序算法可视化</a></li>
+                <li><a href="#coding">代码练习库</a></li>
+            </ul>
+        </nav>
+        <main class="card">
+            <section class="project-card" id="resume">
+                <h3>个人简历页面</h3>
+                <p>响应式布局 + 信息结构设计</p>
+                <p>技术点：响应式布局 / flex布局 / CSS交互动画</p>
+                <a href="../LiQian2023.github.io/resume/resume.html"
+                    >查阅<i class="fa fa-hand-o-right"></i
+                ></a>
+            </section>
+            <section class="project-card" id="sorting">
+                <h3>排序算法可视化 ⭐ 推荐</h3>
+                <p>动态展示算法执行过程，支持多种排序</p>
+                <p>技术点：JS动画 / DOM操作 / 算法实现</p>
+                <a href="../LiQian2023.github.io/sorting/visualization.html"
+                    >体验<i class="fa fa-hand-o-right"></i
+                ></a>
+            </section>
+            <section class="project-card" id="coding">
+                <h3>每日代码练习库</h3>
+                <p>通过 C/Python/JS…… 多种语言完成leetcode题</p>
+                <p>技术点：JS动画 / DOM操作 / 多语言实现</p>
+                <a
+                    href="../LiQian2023.github.io/code_practice/code_practice.html"
+                    >查看<i class="fa fa-hand-o-right"></i
+                ></a>
+            </section>
+        </main>
+        <footer class="card">
+            <address>
+                CSDN博客地址：<a
+                    href="https://blog.csdn.net/2301_79458548"
+                    target="_blank"
+                    >蒙奇D索大: https://blog.csdn.net/2301_79458548</a
+                >
+            </address>
+            <address>
+                51CTO博客地址：<a
+                    href="https://blog.51cto.com/u_16231477"
+                    target="_blank"
+                    >蒙奇D索隆: https://blog.51cto.com/u_16231477</a
+                >
+            </address>
+            <address>
+                腾讯云社区博客地址：<a
+                    href="https://cloud.tencent.com/developer/user/10787339"
+                    target="_blank"
+                    >蒙奇D索隆:
+                    https://cloud.tencent.com/developer/user/10787339</a
+                >
+            </address>
+            <address>
+                gitee仓库地址：<a
+                    href="https://gitee.com/Li_2023-9-13"
+                    target="_blank"
+                    >小李爱编码: https://gitee.com/Li_2023-9-13</a
+                >
+            </address>
+            <address>
+                github仓库地址：<a
+                    href="https://github.com/LiQian2023"
+                    target="_blank"
+                    >LiQian2023: https://github.com/LiQian2023</a
+                >
+            </address>
+        </footer>
     </body>
 </html>
