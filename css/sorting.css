@@ -125,17 +125,52 @@ body {
 
 /* 柱子样式 */
 .bar {
-    width: 20px;
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 0;
     background-color: blue;
-    transition: all 0.3s;
+    transition:
+        transform 0.35s ease,
+        height 0.35s ease,
+        background-color 0.2s ease;
+    will-change: transform;
+    transform-origin: center bottom;
 }
-.bar.active {
-    background-color: red;
+
+/* 状态样式 */
+/* 比较样式*/
+.bar.active-compare-bubble {
+    background-color: yellow;
 }
+.bar.active-compare-insertion {
+    background-color: orange;
+}
+.bar.active-compare-selection {
+    background-color: purple;
+}
+/* 选择样式 */
+.bar.select {
+    background-color: pink;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.35);
+}
+.bar.select.active-compare-selection {
+    background-color: pink;
+}
+/* 交换样式 */
+.bar.active-swap {
+    background-color: #ed8d5a;
+}
+/* 已排序样式 */
 .bar.sorted {
     background-color: green;
+}
+/* 待排序区域样式 */
+.bar.tmp {
+    background-color: red;
+    opacity: 0.5;
+}
+/* 交换中样式 */
+.bar.swapping {
+    z-index: 2;
 }
 
 /* 排序盒子样式 */
@@ -149,6 +184,7 @@ body {
     box-shadow: -5px 5px 5px var(--color_shadow);
     margin: 5px;
 }
+/* 可视化区域样式 */
 .visualization {
     display: flex;
     flex-direction: row;
@@ -159,37 +195,153 @@ body {
     height: 400px;
     background-color: #fff;
     margin-top: 5px;
+    gap: 5px;
 }
+/* 比较容器样式 */
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.perf-item {
+    flex: 0.5;
+    margin: 5px;
+}
+.item-visualization {
+    box-shadow: -5px 5px 5px var(--color_shadow);
+    background-color: #fff;
+    margin: 5px;
+    border: 1px solid #000;
+    height: 200px;
+    width: 100%;
+}
+.perf-visualization {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.visualization_result {
+    box-shadow: -5px 5px 5px var(--color_shadow);
+    background-color: #fff;
+    margin: 5px;
+    border: 1px solid #000;
+    min-height: 200px;
+    width: 100%;
+    padding: 12px;
+    overflow: auto;
+}
+
+.perf-result-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.perf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    text-align: center;
+}
+
+.perf-table th,
+.perf-table td {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+}
+
+.perf-table th {
+    background-color: #f5f5f5;
+}
+
+.perf-chart-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.perf-chart-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    gap: 12px;
+    height: 160px;
+    border: 1px solid #ddd;
+    padding: 12px 8px;
+    background-color: #fafafa;
+}
+
+.perf-bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    width: 30%;
+    height: 100%;
+}
+
+.perf-bar {
+    width: 40px;
+    min-height: 4px;
+    transition: height 0.35s ease;
+}
+
+.algorithm-bar {
+    background-color: #4fb1b2;
+}
+
+.animation-bar {
+    background-color: #ed8d5a;
+}
+
+/* 输入区域样式 */
 .input {
     display: flex;
     justify-content: space-evenly;
     align-items: stretch;
     margin: 5px;
 }
-.description {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-items: stretch;
-    margin: 5px;
-}
-.control {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: stretch;
-    margin: 5px;
-}
+/* 输入框样式 */
 input {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 5px;
 }
-#performance-visualization {
+/* 算法描述样式 */
+.description {
+    margin: 5px;
+}
+/* 控制按钮样式 */
+.control {
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
+    align-items: stretch;
+    margin: 5px;
+}
+
+/* 按钮样式 */
+button {
+    cursor: pointer;
 }
